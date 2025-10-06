@@ -1,7 +1,7 @@
 package main
 
 import (
-	"ToDoList/Repositories"
+	"ToDoList/repositories"
 	"database/sql"
 	"log"
 	"net/http"
@@ -10,7 +10,7 @@ import (
 )
 
 func GetAllTasks(c *gin.Context) {
-	repository, err := Repositories.NewPostgresTaskRepository()
+	repository, err := repositories.NewPostgresTaskRepository()
 	tasks, err := repository.GetAll()
 	if err != nil {
 		c.IndentedJSON(http.StatusInternalServerError, gin.H{"error": err})

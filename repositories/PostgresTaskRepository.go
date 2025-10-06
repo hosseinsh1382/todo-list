@@ -1,8 +1,8 @@
-package Repositories
+package repositories
 
 import (
-	"ToDoList/Interfaces"
 	"ToDoList/Models"
+	"ToDoList/interfaces"
 	"fmt"
 
 	"gorm.io/driver/postgres"
@@ -13,7 +13,7 @@ type PostgresTaskRepository struct {
 	db *gorm.DB
 }
 
-func NewPostgresTaskRepository() (Interfaces.TaskRepository, error) {
+func NewPostgresTaskRepository() (interfaces.TaskRepository, error) {
 	dsn := "host=localhost port=5432 user=postgres password=postgres dbname=todo sslmode=disable"
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
