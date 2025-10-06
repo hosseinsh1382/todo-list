@@ -5,26 +5,28 @@ import (
 )
 
 type Task struct {
-	id          int       `json:"id"`
-	title       string    `json:"title"`
-	description string    `json:"description"`
-	startAt     time.Time `json:"start_at"`
-	endAt       time.Time `json:"end_at"`
-	createdAt   time.Time `json:"created_at"`
+	ID          int       `json:"id gorm:primary_key"`
+	Title       string    `json:"title"`
+	Description string    `json:"description"`
+	StartAt     time.Time `json:"start_at"`
+	EndAt       time.Time `json:"end_at"`
+	CreatedAt   time.Time `json:"created_at"`
+	Deleted     bool      `json:"deleted"`
 }
 
 func NewTask(title string, description string, startAt time.Time, endAt time.Time) *Task {
 	t := Task{
-		title:       title,
-		description: description,
-		startAt:     startAt,
-		endAt:       endAt,
-		createdAt:   time.Now(),
+		Title:       title,
+		Description: description,
+		StartAt:     startAt,
+		EndAt:       endAt,
+		CreatedAt:   time.Now(),
+		Deleted:     false,
 	}
 	return &t
 }
 
-func (t *Task) Id() int {
+/*func (t *Task) Id() int {
 	return t.id
 }
 
@@ -56,3 +58,4 @@ func (t *Task) SetStartAt(startAt time.Time) {
 func (t *Task) SetEndAt(endAt time.Time) {
 	t.endAt = endAt
 }
+*/
