@@ -1,0 +1,87 @@
+definitions:
+  Models.Task:
+    properties:
+      created_at:
+        type: string
+      deleted:
+        type: boolean
+      description:
+        type: string
+      end_at:
+        type: string
+      id gorm:primary_key:
+        type: integer
+      start_at:
+        type: string
+      title:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /tasks:
+    get:
+      description: Get all tasks
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/Models.Task'
+            type: array
+      summary: list tasks
+      tags:
+      - tasks
+    post:
+      description: add new task to database
+      parameters:
+      - description: new task
+        in: body
+        name: task
+        required: true
+        schema:
+          $ref: '#/definitions/Models.Task'
+      responses: {}
+      summary: add new task
+      tags:
+      - tasks
+  /tasks/{id}:
+    delete:
+      description: delete a task by given ID
+      parameters:
+      - description: task id
+        in: query
+        name: id
+        required: true
+        type: integer
+      responses: {}
+      summary: delete task
+      tags:
+      - tasks
+    get:
+      description: Get a task by passing an ID
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/Models.Task'
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: get by ID
+      tags:
+      - tasks
+swagger: "2.0"

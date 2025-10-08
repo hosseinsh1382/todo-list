@@ -46,7 +46,7 @@ func (p PostgresTaskRepository) GetAll() ([]*Models.Task, error) {
 
 func (p PostgresTaskRepository) GetById(id int) (*Models.Task, error) {
 	var task Models.Task
-	result := p.db.First(task, id)
+	result := p.db.First(&task, id)
 	if result.Error != nil {
 		return nil, fmt.Errorf("error in getting task by id: %w", result.Error)
 	}

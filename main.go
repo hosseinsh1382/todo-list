@@ -6,12 +6,17 @@ import (
 	"ToDoList/services"
 	"log"
 
+	_ "ToDoList/docs"
+
 	"github.com/gin-gonic/gin"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
 func main() {
 
 	host := gin.Default()
+	host.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	host.GET("/", func(c *gin.Context) {
 		log.Println("Hello World")

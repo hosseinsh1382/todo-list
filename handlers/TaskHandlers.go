@@ -27,6 +27,13 @@ func NewTaskHandler(taskService interfaces.TaskService) *TaskHandler {
 	}
 }
 
+// Get godoc
+// @Summary		list tasks
+// @Description	Get all tasks
+// @Tags		tasks
+// @Produce 	json
+// @Success 	200 {array} Models.Task
+// @Router		/tasks [get]
 func (t *TaskHandler) Get(c *gin.Context) {
 	tasks, err := t.TaskService.GetAll()
 	if err != nil {
@@ -37,6 +44,15 @@ func (t *TaskHandler) Get(c *gin.Context) {
 	return
 }
 
+// GetById 	godoc
+// @Summary 	get by ID
+// @Description Get a task by passing an ID
+// @Tags		tasks
+// @Produce		json
+// @Success		200 {object} Models.Task
+// @Failure		500 {object} map[string]string
+// @Router		/tasks/{id} [get]
+// @Param 		id	path	int	true	"id"
 func (h *TaskHandler) GetById(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Param("id"))
 	task, err := h.TaskService.GetById(id)
@@ -48,6 +64,12 @@ func (h *TaskHandler) GetById(c *gin.Context) {
 	return
 }
 
+// Add godoc
+// @Summary 	add new task
+// @Description	add new task to database
+// @Param		task body Models.Task true "new task" default
+// @Tags		tasks
+// @Router		/tasks [post]
 func (h *TaskHandler) Add(c *gin.Context) {
 	var task Models.Task
 	if err := c.BindJSON(&task); err != nil {
@@ -63,6 +85,13 @@ func (h *TaskHandler) Add(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"data": result})
 
 }
+
+// Delete godoc
+// @Summary		delete task
+// @Description	delete a task by given ID
+// @Param 		id query int true "task id"
+// @Tags 		tasks
+// @Router		/tasks/{id} [delete]
 func (h *TaskHandler) Delete(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Param("id"))
 	err := h.TaskService.Delete(id)
