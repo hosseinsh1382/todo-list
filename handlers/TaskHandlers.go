@@ -27,6 +27,16 @@ func NewTaskHandler(taskService interfaces.TaskService) *TaskHandler {
 	}
 }
 
+func (h *TaskHandler) RegisterRoutes(router *gin.Engine) {
+	tasks := router.Group("/tasks")
+	{
+		tasks.GET("", h.Get)
+		tasks.GET("/:id", h.GetById)
+		tasks.POST("", h.Add)
+		tasks.DELETE("/:id", h.Delete)
+	}
+}
+
 // Get godoc
 // @Summary		list tasks
 // @Description	Get all tasks
@@ -73,7 +83,10 @@ func (h *TaskHandler) GetById(c *gin.Context) {
 func (h *TaskHandler) Add(c *gin.Context) {
 	var task Models.Task
 	if err := c.BindJSON(&task); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Bad Request"})
+		h.ErrorLogger.Printf("Error in Bind:\n %v", err)
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": "Bad Request",
+		})
 		return
 	}
 	result, err := h.TaskService.Add(task)
@@ -89,7 +102,7 @@ func (h *TaskHandler) Add(c *gin.Context) {
 // Delete godoc
 // @Summary		delete task
 // @Description	delete a task by given ID
-// @Param 		id query int true "task id"
+// @Param 		id path int true "id"
 // @Tags 		tasks
 // @Router		/tasks/{id} [delete]
 func (h *TaskHandler) Delete(c *gin.Context) {

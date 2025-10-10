@@ -92,9 +92,9 @@
                 "parameters": [
                     {
                         "type": "integer",
-                        "description": "task id",
+                        "description": "id",
                         "name": "id",
-                        "in": "query",
+                        "in": "path",
                         "required": true
                     }
                 ],
@@ -118,7 +118,7 @@
                 "end_at": {
                     "type": "string"
                 },
-                "id gorm:primary_key": {
+                "id": {
                     "type": "integer"
                 },
                 "start_at": {

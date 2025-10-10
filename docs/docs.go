@@ -103,9 +103,9 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "type": "integer",
-                        "description": "task id",
+                        "description": "id",
                         "name": "id",
-                        "in": "query",
+                        "in": "path",
                         "required": true
                     }
                 ],
@@ -129,7 +129,7 @@ const docTemplate = `{
                 "end_at": {
                     "type": "string"
                 },
-                "id gorm:primary_key": {
+                "id": {
                     "type": "integer"
                 },
                 "start_at": {
