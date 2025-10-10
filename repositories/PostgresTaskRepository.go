@@ -4,6 +4,7 @@ import (
 	"ToDoList/Models"
 	"ToDoList/interfaces"
 	"fmt"
+	"time"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -27,6 +28,7 @@ func NewPostgresTaskRepository() (interfaces.TaskRepository, error) {
 }
 
 func (p PostgresTaskRepository) Add(newTask *Models.Task) (int, error) {
+	newTask.CreatedAt = time.Now()
 	result := p.db.Create(&newTask)
 	if result.Error != nil {
 		return 0, fmt.Errorf("error adding task to database: %w", result.Error)
