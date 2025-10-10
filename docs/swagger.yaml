@@ -9,7 +9,7 @@ definitions:
         type: string
       end_at:
         type: string
-      id gorm:primary_key:
+      id:
         type: integer
       start_at:
         type: string
@@ -51,8 +51,8 @@ paths:
     delete:
       description: delete a task by given ID
       parameters:
-      - description: task id
-        in: query
+      - description: id
+        in: path
         name: id
         required: true
         type: integer
